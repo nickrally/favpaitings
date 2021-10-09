@@ -1,56 +1,18 @@
-import React, {
-  useEffect,
-  useState,
-  useContext,
-  useReducer,
-  useCallback,
-  useMemo,
-} from "react";
+import React, { useState, useContext, useCallback, useMemo } from "react";
 
 import { Header } from "./Header";
 import { Menu } from "./Menu";
-import PaintingData from "./PaintingData";
+
 import PaintingDetail from "./PaintingDetail";
 import { ConfigContext } from "./App";
-import reducer from "./reducer";
+import usePaintingDataManager from "./usePaintingDataManager";
 
 const Paintings = ({}) => {
   const ctx = useContext(ConfigContext);
   const [saturday, setSaturday] = useState(true);
   const [sunday, setSunday] = useState(true);
 
-  //let's replace two states with a complex one state managed by useReducer.
-  // It will also require changes in reducer.js
-
-  //const [paintingList, dispatch] = useReducer(reducer, []);
-  //const [isLoading, setIsLoading] = useState(true);
-
-  const initState = {
-    isLoading: true,
-    paintingList: [],
-  };
-  const [{ isLoading, paintingList }, dispatch] = useReducer(
-    reducer,
-    initState
-  );
-
-  useEffect(() => {
-    new Promise(function (resolve) {
-      setTimeout(function () {
-        resolve();
-      }, 1000);
-    }).then(() => {
-      dispatch({
-        type: "setPaintingList",
-        data: PaintingData,
-      });
-    });
-
-    return () => {
-      console.log("cleanup if needed");
-    };
-  }, []);
-
+  const { paintingList, isLoading, dispatch } = usePaintingDataManager();
   const handleChangeSaturday = () => {
     setSaturday(!saturday);
   };
