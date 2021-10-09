@@ -1,7 +1,7 @@
 const reducer = (state, action) => {
   function updateFavorite(favoriteValue) {
-    return state.map((item, index) => {
-      if (item.id === action.sessionId) {
+    return state.paintingList.map((item, index) => {
+      if (item.id === action.id) {
         return { ...item, favorite: favoriteValue };
       }
       return item;
@@ -9,13 +9,13 @@ const reducer = (state, action) => {
   }
   switch (action.type) {
     case "setPaintingList": {
-      return action.data;
+      return { ...state, paintingList: action.data, isLoading: false }; //remember to replace entire state object
     }
     case "favorite": {
-      return updateFavorite(true);
+      return { ...state, paintingList: updateFavorite(true) };
     }
     case "unfavorite": {
-      return updateFavorite(false);
+      return { ...state, paintingList: updateFavorite(false) };
     }
     default:
       return state;

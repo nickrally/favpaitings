@@ -19,29 +19,33 @@ const Paintings = ({}) => {
   const [saturday, setSaturday] = useState(true);
   const [sunday, setSunday] = useState(true);
 
-  //const [paintingList, setPaintingList] = useState([]);
+  //let's replace two states with a complex one state managed by useReducer.
+  // It will also require changes in reducer.js
 
-  const [paintingList, dispatch] = useReducer(reducer, []);
+  //const [paintingList, dispatch] = useReducer(reducer, []);
+  //const [isLoading, setIsLoading] = useState(true);
 
-  const [isLoading, setIsLoading] = useState(true);
+  const initState = {
+    isLoading: true,
+    paintingList: [],
+  };
+  const [{ isLoading, paintingList }, dispatch] = useReducer(
+    reducer,
+    initState
+  );
 
   useEffect(() => {
-    setIsLoading(true);
     new Promise(function (resolve) {
       setTimeout(function () {
         resolve();
       }, 1000);
     }).then(() => {
-      setIsLoading(false);
+      dispatch({
+        type: "setPaintingList",
+        data: PaintingData,
+      });
     });
-    //setPaintingList(PaintingData);
-    const paintingListServerFilter = PaintingData.filter(
-      ({ sat, sun }) => (sat && saturday) || (sun && sunday)
-    );
-    dispatch({
-      type: "setPaintingList",
-      data: paintingListServerFilter,
-    });
+
     return () => {
       console.log("cleanup if needed");
     };
@@ -56,20 +60,11 @@ const Paintings = ({}) => {
   };
 
   const onHeartFavoriteHandler = useCallback((e, favoriteValue) => {
-    console.log("favoriteValue", favoriteValue);
     e.preventDefault();
     const sessionId = parseInt(e.target.attributes["data-sessionid"].value);
-    /* setPaintingList(
-      paintingList.map((item) => {
-        if (item.id === sessionId) {
-          return { ...item, favorite: favoriteValue };
-        }
-        return item;
-      })
-    ); */
     dispatch({
       type: favoriteValue ? "favorite" : "unfavorite",
-      sessionId,
+      id: sessionId,
     });
   }, []);
 
