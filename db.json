@@ -1,0 +1,94 @@
+{
+  "paintings": [
+    {
+      "id": 1,
+      "firstName": "Jean Honore",
+      "lastName": "Fragonard",
+      "sat": false,
+      "sun": true,
+      "favorite": true,
+      "title": "Woman reading"
+    },
+    {
+      "id": 2,
+      "firstName": "Ivan",
+      "lastName": "Kramskoi",
+      "sat": true,
+      "sun": true,
+      "favorite": true,
+      "title": "Portrait of an unknown woman"
+    },
+    {
+      "id": 3,
+      "firstName": "Amadeo",
+      "lastName": "Modigliani",
+      "sat": true,
+      "sun": false,
+      "favorite": true,
+      "title": " Jeanne Hébuterne"
+    },
+    {
+      "id": 4,
+      "firstName": "Amadeo",
+      "lastName": "Modigliani",
+      "sat": true,
+      "sun": false,
+      "favorite": true,
+      "title": "Maybe Dr.Deveraigne"
+    },
+    {
+      "id": 5,
+      "firstName": "Rembrandt",
+      "lastName": "van Rijn",
+      "sat": true,
+      "sun": true,
+      "favorite": true,
+      "title": "Self-portrait"
+    },
+    {
+      "id": 6,
+      "firstName": "Rembrandt",
+      "lastName": "van Rijn",
+      "sat": true,
+      "sun": true,
+      "favorite": true,
+      "title": "Old man"
+    },
+    {
+      "id": 7,
+      "firstName": "Ilya",
+      "lastName": "Repin",
+      "sat": true,
+      "sun": false,
+      "favorite": false,
+      "title": "Pisemsky"
+    },
+    {
+      "id": 8,
+      "firstName": "Martiros",
+      "lastName": "Saryan",
+      "sat": true,
+      "sun": true,
+      "favorite": true,
+      "title": "Portrait of a woman"
+    },
+    {
+      "id": 9,
+      "firstName": "Amadeo",
+      "lastName": "Modigliani",
+      "sat": true,
+      "sun": false,
+      "favorite": true,
+      "title": "Another Jeanne Hébuterne"
+    },
+    {
+      "id": 10,
+      "firstName": "Ilya",
+      "lastName": "Repin",
+      "sat": true,
+      "sun": false,
+      "favorite": true,
+      "title": "Musorgsky"
+    }
+  ]
+}

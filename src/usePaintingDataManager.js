@@ -1,6 +1,7 @@
 import React, { useReducer, useEffect } from "react";
 import PaintingData from "./PaintingData";
 import reducer from "./reducer";
+import axios from "axios";
 
 function usePaintingDataManager() {
   const initState = {
@@ -13,22 +14,27 @@ function usePaintingDataManager() {
   );
 
   function togglePaintingFavoriteStatus(painting) {
-    painting.favorite === true
-      ? dispatch({ type: "unfavorite", id: painting.id })
-      : dispatch({ type: "favorite", id: painting.id });
+    const updateData = async function () {
+      axios.put(`/api/paintings/${painting.id}`, {
+        ...painting,
+        favorite: !painting.favorite,
+      });
+      //above changes the data, and below we change the state:
+      painting.favorite === true
+        ? dispatch({ type: "unfavorite", id: painting.id })
+        : dispatch({ type: "favorite", id: painting.id });
+    };
+    updateData();
   }
   useEffect(() => {
-    new Promise(function (resolve) {
-      setTimeout(function () {
-        resolve();
-      }, 1000);
-    }).then(() => {
+    const fetchData = async function () {
+      let result = await axios.get("/api/paintings");
       dispatch({
         type: "setPaintingList",
-        data: PaintingData,
+        data: result.data,
       });
-    });
-
+    };
+    fetchData();
     return () => {
       console.log("cleanup if needed");
     };
