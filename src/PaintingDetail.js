@@ -1,14 +1,8 @@
 import React from "react";
 import ImageToggleOnScroll from "./ImageToggleOnScroll";
 
-const PaintingDetail = ({
-  id,
-  firstName,
-  lastName,
-  favorite,
-  title,
-  onHeartFavoriteHandler,
-}) => {
+const PaintingDetail = ({ painting, onHeartFavoriteHandler }) => {
+  const { id, firstName, lastName, title, favorite } = painting;
   console.log(`Painting detail: ${id} ${title}`);
   return (
     <div>
@@ -22,9 +16,8 @@ const PaintingDetail = ({
         <div className="card-body">
           <h4 className="card-title">
             <button
-              data-sessionid={id}
               className={favorite ? "heartredbutton" : "heartdarkbutton"}
-              onClick={(e) => onHeartFavoriteHandler(e, !favorite)}
+              onClick={(e) => onHeartFavoriteHandler(e, painting)}
             />
             <span>
               {firstName} {lastName}

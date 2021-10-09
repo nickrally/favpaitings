@@ -12,6 +12,11 @@ function usePaintingDataManager() {
     initState
   );
 
+  function togglePaintingFavoriteStatus(painting) {
+    painting.favorite === true
+      ? dispatch({ type: "unfavorite", id: painting.id })
+      : dispatch({ type: "favorite", id: painting.id });
+  }
   useEffect(() => {
     new Promise(function (resolve) {
       setTimeout(function () {
@@ -32,7 +37,7 @@ function usePaintingDataManager() {
   return {
     isLoading,
     paintingList,
-    dispatch,
+    togglePaintingFavoriteStatus,
   };
 }
 export default usePaintingDataManager;

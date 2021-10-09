@@ -12,7 +12,8 @@ const Paintings = ({}) => {
   const [saturday, setSaturday] = useState(true);
   const [sunday, setSunday] = useState(true);
 
-  const { paintingList, isLoading, dispatch } = usePaintingDataManager();
+  const { paintingList, isLoading, togglePaintingFavoriteStatus } =
+    usePaintingDataManager();
   const handleChangeSaturday = () => {
     setSaturday(!saturday);
   };
@@ -21,13 +22,9 @@ const Paintings = ({}) => {
     setSunday(!sunday);
   };
 
-  const onHeartFavoriteHandler = useCallback((e, favoriteValue) => {
+  const onHeartFavoriteHandler = useCallback((e, painting) => {
     e.preventDefault();
-    const sessionId = parseInt(e.target.attributes["data-sessionid"].value);
-    dispatch({
-      type: favoriteValue ? "favorite" : "unfavorite",
-      id: sessionId,
-    });
+    togglePaintingFavoriteStatus(painting);
   }, []);
 
   const memoizedPaintingList = useMemo(
@@ -84,21 +81,15 @@ const Paintings = ({}) => {
         </div>
         <div className="row">
           <div className="card-deck">
-            {paintingListFiltered.map(
-              ({ id, firstName, lastName, title, favorite }) => {
-                return (
-                  <PaintingDetail
-                    key={id}
-                    id={id}
-                    firstName={firstName}
-                    lastName={lastName}
-                    favorite={favorite}
-                    title={title}
-                    onHeartFavoriteHandler={onHeartFavoriteHandler}
-                  />
-                );
-              }
-            )}
+            {paintingListFiltered.map((painting) => {
+              return (
+                <PaintingDetail
+                  key={painting.id}
+                  painting={painting}
+                  onHeartFavoriteHandler={onHeartFavoriteHandler}
+                />
+              );
+            })}
           </div>
         </div>
       </div>
