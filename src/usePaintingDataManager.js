@@ -1,5 +1,4 @@
 import React, { useReducer, useEffect } from "react";
-import PaintingData from "./PaintingData";
 import reducer from "./reducer";
 import axios from "axios";
 
@@ -7,11 +6,18 @@ function usePaintingDataManager() {
   const initState = {
     isLoading: true,
     paintingList: [],
+    favoriteClickCount: 0,
+    hasError: false,
+    error: null,
   };
-  const [{ isLoading, paintingList }, dispatch] = useReducer(
-    reducer,
-    initState
-  );
+  const [
+    { isLoading, paintingList, favoriteClickCount, hasError, error },
+    dispatch,
+  ] = useReducer(reducer, initState);
+
+  function incrementFavoriteClickCount() {
+    dispatch({ type: "incrementFavoriteClickCount" });
+  }
 
   function togglePaintingFavoriteStatus(painting) {
     const updateData = async function () {
@@ -28,11 +34,15 @@ function usePaintingDataManager() {
   }
   useEffect(() => {
     const fetchData = async function () {
-      let result = await axios.get("/api/paintings");
-      dispatch({
-        type: "setPaintingList",
-        data: result.data,
-      });
+      try {
+        let result = await axios.get("/api/paintings");
+        dispatch({
+          type: "setPaintingList",
+          data: result.data,
+        });
+      } catch (e) {
+        dispatch({ type: "errored", error: e });
+      }
     };
     fetchData();
     return () => {
@@ -42,8 +52,12 @@ function usePaintingDataManager() {
 
   return {
     isLoading,
+    error,
+    hasError,
     paintingList,
     togglePaintingFavoriteStatus,
+    favoriteClickCount,
+    incrementFavoriteClickCount,
   };
 }
 export default usePaintingDataManager;

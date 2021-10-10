@@ -5,15 +5,21 @@ import { Menu } from "./Menu";
 
 import PaintingDetail from "./PaintingDetail";
 import { ConfigContext } from "./App";
-import usePaintingDataManager from "./usePaintingDataManager";
+import { GlobalContext } from "./GlobalState";
 
 const Paintings = ({}) => {
   const ctx = useContext(ConfigContext);
   const [saturday, setSaturday] = useState(true);
   const [sunday, setSunday] = useState(true);
 
-  const { paintingList, isLoading, togglePaintingFavoriteStatus } =
-    usePaintingDataManager();
+  const {
+    isLoading,
+    paintingList,
+    togglePaintingFavoriteStatus,
+    hasError,
+    error,
+  } = useContext(GlobalContext);
+
   const handleChangeSaturday = () => {
     setSaturday(!saturday);
   };
@@ -46,6 +52,7 @@ const Paintings = ({}) => {
   const paintingListFiltered = isLoading ? [] : memoizedPaintingList;
 
   if (isLoading) return <div>Loading...</div>;
+  if (hasError) return <div>{error.message}</div>;
   return (
     <div>
       <Header />

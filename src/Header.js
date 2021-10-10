@@ -1,5 +1,8 @@
+import React, { useContext } from "react";
 import SignMeUp from "./SignMeUp";
+import { GlobalContext } from "./GlobalState";
 export const Header = () => {
+  const { favoriteClickCount } = useContext(GlobalContext);
   const signupCallback = (email) => {
     return console.log(`sign up called with email ${email}`);
   };
@@ -15,6 +18,7 @@ export const Header = () => {
             <img src="" alg="some logo" />
           </div>
           <h2>PAINTINGS</h2>
+          <h3>Click count: {favoriteClickCount}</h3>
           <div className="row col-12 text-lg-right">
             <SignMeUp signupCallback={signupCallback} />
           </div>
