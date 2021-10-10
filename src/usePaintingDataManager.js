@@ -1,12 +1,14 @@
-import React, { useReducer, useEffect } from "react";
-import PaintingData from "./PaintingData";
+import React, { useReducer, useContext } from "react";
 import reducer from "./reducer";
 import axios from "axios";
+import { InitPaintingsDataContext } from "../pages/paintings";
 
 function usePaintingDataManager() {
+  const initPaintingsData = useContext(InitPaintingsDataContext);
+
   const initState = {
-    isLoading: true,
-    paintingList: [],
+    isLoading: false, //I already have the data
+    paintingList: initPaintingsData,
   };
   const [{ isLoading, paintingList }, dispatch] = useReducer(
     reducer,
@@ -26,20 +28,6 @@ function usePaintingDataManager() {
     };
     updateData();
   }
-  useEffect(() => {
-    const fetchData = async function () {
-      let result = await axios.get("/api/paintings");
-      dispatch({
-        type: "setPaintingList",
-        data: result.data,
-      });
-    };
-    fetchData();
-    return () => {
-      console.log("cleanup if needed");
-    };
-  }, []);
-
   return {
     isLoading,
     paintingList,
