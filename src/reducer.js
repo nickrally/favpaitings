@@ -25,6 +25,9 @@ const reducer = (state, action) => {
     case "incrementFavoriteClickCount": {
       return { ...state, favoriteClickCount: state.favoriteClickCount + 1 };
     }
+    case "forceImageRerender": {
+      return { ...state, imageRendererIdentifier: new Date().getTime() };
+    }
     case "errored": {
       return {
         ...state,

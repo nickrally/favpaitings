@@ -18,13 +18,16 @@ const Paintings = ({}) => {
     togglePaintingFavoriteStatus,
     hasError,
     error,
+    forceImageRerender,
   } = useContext(GlobalContext);
 
   const handleChangeSaturday = () => {
+    forceImageRerender();
     setSaturday(!saturday);
   };
 
   const handleChangeSunday = () => {
+    forceImageRerender();
     setSunday(!sunday);
   };
 

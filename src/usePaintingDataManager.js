@@ -9,14 +9,26 @@ function usePaintingDataManager() {
     favoriteClickCount: 0,
     hasError: false,
     error: null,
+    imageRendererIdentifier: 0,
   };
   const [
-    { isLoading, paintingList, favoriteClickCount, hasError, error },
+    {
+      isLoading,
+      paintingList,
+      favoriteClickCount,
+      hasError,
+      error,
+      imageRendererIdentifier,
+    },
     dispatch,
   ] = useReducer(reducer, initState);
 
   function incrementFavoriteClickCount() {
     dispatch({ type: "incrementFavoriteClickCount" });
+  }
+
+  function forceImageRerender() {
+    dispatch({ type: "imageRerender" });
   }
 
   function togglePaintingFavoriteStatus(painting) {
@@ -58,6 +70,8 @@ function usePaintingDataManager() {
     togglePaintingFavoriteStatus,
     favoriteClickCount,
     incrementFavoriteClickCount,
+    imageRendererIdentifier,
+    forceImageRerender,
   };
 }
 export default usePaintingDataManager;

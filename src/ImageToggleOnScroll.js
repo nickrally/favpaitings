@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
+import { GlobalContext } from "./GlobalState";
 
 const ImageToggleOnScroll = ({ primaryImg, secondaryImg }) => {
   const imageRef = useRef(null);
-
+  const { imageRendererIdentifier } = useContext(GlobalContext);
   const [isLoading, setIsLoading] = useState(true);
 
   const isInView = () => {
@@ -19,7 +20,7 @@ const ImageToggleOnScroll = ({ primaryImg, secondaryImg }) => {
     return () => {
       window.removeEventListener("scroll", scrollHandler);
     };
-  }, []);
+  }, [imageRendererIdentifier]);
 
   const scrollHandler = () => {
     setInView(isInView());

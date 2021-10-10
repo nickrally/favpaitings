@@ -11,6 +11,8 @@ export const GlobalProvider = ({ children }) => {
     togglePaintingFavoriteStatus,
     favoriteClickCount,
     incrementFavoriteClickCount,
+    imageRendererIdentifier,
+    forceImageRerender,
   } = usePaintingDataManager();
   const provider = {
     isLoading,
@@ -20,6 +22,8 @@ export const GlobalProvider = ({ children }) => {
     togglePaintingFavoriteStatus,
     favoriteClickCount,
     incrementFavoriteClickCount,
+    imageRendererIdentifier,
+    forceImageRerender,
   };
   return (
     <GlobalContext.Provider value={provider}>{children}</GlobalContext.Provider>
